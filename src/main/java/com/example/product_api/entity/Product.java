@@ -13,6 +13,7 @@ import java.math.BigDecimal;
  * Represents a persisting product by application
  * <p>This Entity contains internal data used for a persistence layer</p>
  */
+
 @Entity
 @Table(name = "tb_product")
 @NoArgsConstructor
