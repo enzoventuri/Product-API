@@ -4,8 +4,6 @@ import com.example.product_api.dto.ErrorResponse;
 import com.example.product_api.dto.ProductCreateRequest;
 import com.example.product_api.dto.ProductResponse;
 import com.example.product_api.dto.ProductUpdateRequest;
-import com.example.product_api.entity.Product;
-import com.example.product_api.mapper.ProductMapper;
 import com.example.product_api.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +32,7 @@ public class ProductController {
     }
 
     /**
-     * Lista todos os produts cadastrados
+     * Lista todos os produtos cadastrados
      * @return Lista de produtos
      * */
     @Operation(

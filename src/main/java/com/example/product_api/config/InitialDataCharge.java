@@ -1,25 +1,30 @@
 package com.example.product_api.config;
 
 import com.example.product_api.entity.Product;
+import com.example.product_api.entity.User;
+import com.example.product_api.enums.Roles;
 import com.example.product_api.repository.ProductRepository;
+import com.example.product_api.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 /** * Carga inicial de dados para popular o banco durante a inicialização da aplicação * */
 @Configuration
+@RequiredArgsConstructor
 public class InitialDataCharge implements CommandLineRunner {
-    private final ProductRepository repository;
+    private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
-    public InitialDataCharge(ProductRepository repository) {
-        this.repository = repository;
-    }
+    private final PasswordEncoder encoder;
 
     @Override
     public void run(String... args) throws Exception {
-        if (repository.count() == 0) {
+        if (productRepository.count() == 0) {
             List<Product> initialProducts = List.of(
                     Product.builder()
                             .name("Notebook Dell Inspiron")
@@ -48,7 +53,25 @@ public class InitialDataCharge implements CommandLineRunner {
                             .build()
             );
 
-            repository.saveAll(initialProducts);
+            productRepository.saveAll(initialProducts);
+        }
+
+        if (userRepository.count() == 0) {
+            List<User> initialUsers = List.of(
+                    User.builder()
+                            .nome("Enzo")
+                            .password(encoder.encode("Enzo123!"))
+                            .role(Roles.ADMIN)
+                            .build(),
+                    User.builder()
+                            .nome("Enzo2")
+                            .password(encoder.encode("Enzo1234!"))
+                            .role(Roles.CLIENT)
+                            .build()
+            );
+
+            userRepository.saveAll(initialUsers);
         }
     }
+
 }
